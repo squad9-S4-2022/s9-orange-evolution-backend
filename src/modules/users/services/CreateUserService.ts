@@ -1,5 +1,6 @@
-import { AppError } from "../../../utils/AppError";
+import { hash } from "bcrypt";
 import { datasource } from "../../../database";
+import { AppError } from "../../../utils/AppError";
 import { ICreateUserDTO } from "../dtos/ICreateUserDTO";
 import { User } from "../entities/User";
 
@@ -13,9 +14,15 @@ class CreateUserService {
             return new AppError("Usuário já cadastrado", 400);
         }
 
-        // cria usuario
+        // criptografia de senha
+        const encryptedPassword = await hash(password, 8);
+
+        // cria usuario atribuindo o campo com senha criptografada
         const user = usersRepository.create({
-            first_name, last_name, email, password
+            first_name,
+            last_name,
+            email,
+            password: encryptedPassword
         });
 
         // salva
