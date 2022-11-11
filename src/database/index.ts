@@ -1,8 +1,9 @@
 // Conexão com o banco de dados
 import * as dotenv from "dotenv";
-import { User } from "../modules/users/entities/User";
-
 import { DataSource } from "typeorm";
+
+import { User } from "../modules/users/entities/User";
+import { Content } from "../modules/contents/entities/Content";
 
 dotenv.config();
 
@@ -14,7 +15,7 @@ const datasource = new DataSource({
     url: process.env.DB_URL,
     // synchronize: true,
     // logging: true,
-    entities: [User],
+    entities: [User, Content],
     // entities: ["./src/modules/**/entities/*.ts"],
     migrations: ["./src/database/typeorm/migrations/*.ts"]
 });
@@ -24,4 +25,4 @@ export function createConnection(): Promise<DataSource> {
     return datasource.initialize();
 }
 
-export { datasource }
+export { datasource };

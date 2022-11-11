@@ -1,11 +1,15 @@
 import { Request, Response, Router } from "express";
+import { ListContentController } from "../modules/contents/controllers/ListContentController";
+import { CreateContentController } from "../modules/contents/controllers/CreateContentController";
 
 const contentRoutes = Router();
 
+const createContentController = new CreateContentController();
 
-// Rota padrão de conteúdos, que sempre começara com /content, conforme definido no routes > index.ts
-contentRoutes.get("/", (request: Request, response: Response) => {
-    return response.send({ message: "Rota de conteúdos" });
-})
+const listContentController = new ListContentController();
+
+contentRoutes.post("/new", createContentController.handle);
+
+contentRoutes.get("/list", listContentController.handle);
 
 export { contentRoutes };
