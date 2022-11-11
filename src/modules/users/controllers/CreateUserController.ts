@@ -1,8 +1,8 @@
-import { Request, response, Response } from "express";
+import { Request, Response } from "express";
 import { CreateUserService } from "../services/CreateUserService";
 
 class CreateUserController {
-    async handle(request: Request, response: Response) {
+    async handle(request: Request, response: Response): Promise<Response> {
         // recebe os dados pelo corpo da requisição
         const { first_name, last_name, email, password } = request.body;
 

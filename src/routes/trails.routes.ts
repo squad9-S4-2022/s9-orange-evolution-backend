@@ -1,11 +1,18 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
+import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
+import { ensureIsAdmin } from "../middlewares/ensureIsAdmin";
+import { CreateTrailController } from "../modules/trails/controllers/CreateTrailController";
+import { ListTrailsController } from "../modules/trails/controllers/ListTrailsController";
 
-const trailRotues = Router();
+const trailRoutes = Router();
 
+const createTrailController = new CreateTrailController();
+const listTrailsController = new ListTrailsController();
 
-// Rota padrão de trilhas, que sempre começara com /trail, conforme definido no routes > index.ts
-trailRotues.get("/", (request: Request, response: Response) => {
-    return response.send({ message: "Rota de trilhas" });
-})
+// Criar trilha
+trailRoutes.post("/new", ensureAuthenticated, ensureIsAdmin, createTrailController.handle);
 
-export { trailRotues };
+// Rota de listagem de trilhas, que sempre começara com /trails, conforme definido no routes > index.ts
+trailRoutes.get("/list", ensureAuthenticated, listTrailsController.handle);
+
+export { trailRoutes };

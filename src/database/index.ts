@@ -3,6 +3,7 @@ import * as dotenv from "dotenv";
 import { User } from "../modules/users/entities/User";
 
 import { DataSource } from "typeorm";
+import { Trail } from "../modules/trails/entities/Trail";
 
 dotenv.config();
 
@@ -14,7 +15,7 @@ const datasource = new DataSource({
     url: process.env.DB_URL,
     // synchronize: true,
     // logging: true,
-    entities: [User],
+    entities: [User, Trail],
     // entities: ["./src/modules/**/entities/*.ts"],
     migrations: ["./src/database/typeorm/migrations/*.ts"]
 });
