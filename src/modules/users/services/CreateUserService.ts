@@ -5,7 +5,7 @@ import { ICreateUserDTO } from "../dtos/ICreateUserDTO";
 import { User } from "../entities/User";
 
 class CreateUserService {
-    async execute({ first_name, last_name, email, password }: ICreateUserDTO): Promise<User | AppError> {
+    async execute({ first_name, last_name, email, password, trails }: ICreateUserDTO): Promise<User | AppError> {
         const usersRepository = datasource.getRepository(User);
 
         // busca no banco um usuario existente por email, se existir, retorna um erro
@@ -22,8 +22,11 @@ class CreateUserService {
             first_name,
             last_name,
             email,
-            password: encryptedPassword
+            password: encryptedPassword,
+            trails
         });
+
+        delete user.password;
 
         // salva
         await usersRepository.save(user);

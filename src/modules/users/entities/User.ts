@@ -1,6 +1,7 @@
 import { randomUUID } from "crypto";
+import { Trail } from "../../../modules/trails/entities/Trail";
 
-import { Entity, PrimaryColumn, Column, CreateDateColumn } from "typeorm";
+import { Entity, PrimaryColumn, Column, CreateDateColumn, ManyToMany, JoinTable } from "typeorm";
 
 // esta entidade está sendo referenciada na tabela users do banco de dados
 @Entity("users")
@@ -22,6 +23,14 @@ class User {
 
     @Column()
     admin: boolean;
+
+    @ManyToMany(() => Trail)
+    @JoinTable({
+        name: "user_trails",
+        joinColumns: [{ name: "user_id" }],
+        inverseJoinColumns: [{ name: "trail_id" }]
+    })
+    trails?: Trail[];
 
     @CreateDateColumn()
     created_at: Date;
