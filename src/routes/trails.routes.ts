@@ -35,7 +35,7 @@ trailRoutes.put(
 
 // remover conteúdo da trilha
 trailRoutes.delete(
-    "/remove-content",
+    "/remove-content/:trail_id",
     removeContentFromTrailController.handle);
 
 export { trailRoutes };
