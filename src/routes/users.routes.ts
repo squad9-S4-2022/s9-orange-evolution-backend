@@ -10,21 +10,22 @@ const createUserController = new CreateUserController();
 const getUserProfileController = new GetUserProfileController();
 const signUpToTrailController = new SignUpToTrailController();
 
-// Rota padrão de usuário, que sempre começara com /user, conforme definido no routes > index.ts
-// rota de cadastro
+// Rotas padrão de usuário, que sempre começara com /user, conforme definido no routes > index.ts
+
+// rota de cadastro de usuario
 userRoutes.post(
     "/",
     createUserController.handle);
 
 // Rota de inscrever um usuário a uma trilha
-userRoutes.put(
+userRoutes.post(
     "/signup-to-trail/:id",
     ensureAuthenticated,
     signUpToTrailController.handle)
 
 // rota para exibir o perfil de usuário
 userRoutes.get(
-    "/profile/:id",
+    "/profile",
     ensureAuthenticated,
     getUserProfileController.handle);
 

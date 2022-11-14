@@ -15,27 +15,33 @@ const listTrailsController = new ListTrailsController();
 const addContentToTrailController = new AddContentToTrailController();
 const removeContentFromTrailController = new RemoveContentFromTrailController();
 
-// Criar trilha
+// Rota padrão de trilhas, que sempre começara com /trails, conforme definido no routes > index.ts
+
+// Criar uma trilha
 trailRoutes.post(
     "/new",
     ensureAuthenticated,
     ensureIsAdmin,
     createTrailController.handle);
 
-// Rota de listagem de trilhas, que sempre começara com /trails, conforme definido no routes > index.ts
+// Rota de listagem de trilhas
 trailRoutes.get(
     "/list",
-    ensureAuthenticated,
+    // ensureAuthenticated,
     listTrailsController.handle);
 
-// adicionar conteúdo à trilha
-trailRoutes.put(
+// adicionar conteúdo à uma trilha
+trailRoutes.post(
     "/add-content/:trail_id",
+    // ensureAuthenticated,
+    // ensureIsAdmin,
     addContentToTrailController.handle);
 
-// remover conteúdo da trilha
+// remover conteúdo de uma trilha
 trailRoutes.delete(
     "/remove-content/:trail_id",
+    // ensureAuthenticated,
+    // ensureIsAdmin,
     removeContentFromTrailController.handle);
 
 export { trailRoutes };

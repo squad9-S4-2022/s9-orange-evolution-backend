@@ -14,10 +14,7 @@ dotenv.config();
 const datasource = new DataSource({
     type: "postgres",
     url: process.env.DB_URL,
-    // synchronize: true,
-    // logging: true,
     entities: [User, Trail, Content],
-    // entities: ["./src/modules/**/entities/*.ts"],
     migrations: ["./src/database/typeorm/migrations/*.ts"]
 });
 

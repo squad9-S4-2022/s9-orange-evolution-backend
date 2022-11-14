@@ -34,7 +34,7 @@ class AuthenticateUserService {
 
         const token = sign({}, "Hack4thon-squ4d9", {
             subject: user.id,
-            expiresIn: "1d",
+            expiresIn: "7d",
         });
 
         return { user, token };

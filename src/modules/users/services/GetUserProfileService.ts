@@ -18,7 +18,7 @@ class GetUserProfileService {
         })
 
         if (!user) {
-            throw new AppError("Usuário não existe", 400);
+            throw new AppError("Usuário não existe", 404);
         }
 
         delete user.password;

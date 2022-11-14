@@ -15,7 +15,14 @@ class AddContentToTrailService {
         const contentsRepository = datasource.getRepository(Content);
         const trailsRepository = datasource.getRepository(Trail);
 
-        const trail = await trailsRepository.findOneBy({ id: trail_id })
+        const trail = await trailsRepository.findOne({
+            where: {
+                id: trail_id
+            },
+            relations: {
+                contents: true
+            }
+        });
 
         if (!trail) {
             throw new AppError("Trilha não encontrada", 404);
@@ -25,7 +32,9 @@ class AddContentToTrailService {
             id: In(content_ids)
         });
 
-        trail.contents = contents;
+        contents.forEach((content) => {
+            trail.contents.push(content);
+        })
 
         await trailsRepository.save(trail);
 

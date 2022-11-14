@@ -28,7 +28,7 @@ class CreateUserService {
 
         delete user.password;
 
-        // salva
+        // salva no banco de dados
         await usersRepository.save(user);
 
         return user;
