@@ -1,5 +1,5 @@
 import { In } from "typeorm";
-import { AppError } from "utils/AppError";
+import { AppError } from "../../../utils/AppError";
 
 import { datasource } from "../../../database";
 import { Trail } from "../../../modules/trails/entities/Trail";
@@ -33,7 +33,7 @@ class SignUpToTrailService {
         user.trails = trails;
 
         // salva as trlhas assinaladas ao usuario na tabela de relacionamento users_trails
-        usersRrepository.save(user);
+        await usersRrepository.save(user);
 
         delete user.password;
 

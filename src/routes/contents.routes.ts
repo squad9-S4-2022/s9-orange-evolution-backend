@@ -8,8 +8,12 @@ const createContentController = new CreateContentController();
 
 const listContentController = new ListContentController();
 
-contentRoutes.post("/new", createContentController.handle);
+contentRoutes.post(
+    "/new",
+    createContentController.handle);
 
-contentRoutes.get("/list", listContentController.handle);
+contentRoutes.get(
+    "/list",
+    listContentController.handle);
 
 export { contentRoutes };

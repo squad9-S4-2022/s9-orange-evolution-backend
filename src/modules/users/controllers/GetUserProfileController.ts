@@ -3,11 +3,11 @@ import { GetUserProfileService } from "../services/GetUserProfileService";
 
 class GetUserProfileController {
     async handle(request: Request, response: Response): Promise<Response> {
-        const { id } = request.params;
+        const { user_id } = request.params;
 
         const getUserProfileService = new GetUserProfileService();
 
-        const user = await getUserProfileService.execute(id);
+        const user = await getUserProfileService.execute(user_id);
 
         return response.status(200).json(user);
     }
