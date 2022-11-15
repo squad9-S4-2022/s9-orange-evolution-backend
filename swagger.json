@@ -1,0 +1,643 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Squad 9 [Orange Juice]",
+        "description": "Content API for technology beginners. You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.",
+        "version": "1.0.0",
+        "termsOfService": "http://swagger.io/terms/",
+        "servers": [
+            {
+                "url": "http://localhost:3333/v1",
+                "description": "API de Teste"
+            }
+        ],
+        "contact": {
+            "email": "apiteam@swagger.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "x-logo": {
+            "url": "https://d335luupugsy2.cloudfront.net/cms/files/107693/1639661491/$s20z34nynz"
+        }
+    },
+    "host": "squad9-orangejuice.swagger.io",
+    "basePath": "/v1",
+    "tags": [
+        {
+            "name": "technology",
+            "description": "Your opportunity to learn technlogy with Orange Juice",
+            "externalDocs": {
+                "description": "Find out more",
+                "url": "http://swagger.io"
+            }
+        },
+        {
+            "name": "user",
+            "description": "Operations about user"
+        },
+        {
+            "name": "trail",
+            "description": "Operations about trail"
+        },
+        {
+            "name": "content",
+            "description": "Operations about content"
+        }
+    ],
+    "schemes": [
+        "https",
+        "http"
+    ],
+    "paths": {
+        "/user": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Create new user",
+                "description": "This route is responsible to create new user",
+                "requestBody": {
+                    "description": "Necessary data to create a new user",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestUser"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/ResponseUser"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "User already registered"
+                    },
+                    "401": {
+                        "description": "Unauthorized - incorrect token"
+                    },
+                    "422": {
+                        "description": "Incomplete data"
+                    }
+                }
+            }
+        },
+        "/user/profile": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get user by ID",
+                "description": "This route is responsible to find existing user",
+                "parameters": [
+                    {
+                        "name": "UserId",
+                        "in": "path",
+                        "description": "Find register by user ID",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User founded",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/ResponseUser"
+                                }
+                            }
+                        }
+                    },
+                    "description": "User founded",
+                    "schema": {
+                        "$ref": "#/components/schemas/ResponseUser"
+                    },
+                    "404": {
+                        "description": "No user found"
+                    }
+                }
+            }
+        },
+        "/user/login": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Logs user into the system",
+                "description": "This route is responsible to login user in the system",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Use email user for login",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Use password user for login",
+                        "required": true,
+                        "type": "string",
+                        "format": "password"
+                    }
+                ]
+            },
+            "responses": {
+                "200": {
+                    "description": "Login successfully"
+                },
+                "400": {
+                    "description": "Invalid email/password supplied"
+                }
+            }
+        },
+        "/user/signup-to-trail/{UserId}": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Subscribe user in a trail",
+                "description": "This route is responsible to subscribe user in a trail",
+                "parameters": [
+                    {
+                        "name": "trail_id",
+                        "in": "path",
+                        "description": "Subscribe user in a trail",
+                        "required": true,
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Subscription successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/ResponseTrail"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No trail found"
+                    }
+                }
+            }
+        },
+        "/trails/new": {
+            "post": {
+                "tags": [
+                    "trail"
+                ],
+                "summary": "Create new trail",
+                "description": "This route is responsible to create new trail",
+                "requestBody": {
+                    "description": "Necessary data to create a new trail",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestTrail"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Trail created successfully",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/ResponseTrail"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Trail not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/trails/add-content/{trailId}": {
+            "post": {
+                "tags": [
+                    "trail"
+                ],
+                "summary": "Add content to trail",
+                "description": "This route is responsible to add content to trail",
+                "parameters": [
+                    {
+                        "name": "bearerToken",
+                        "in": "path",
+                        "description": "ID trail to return",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Content added to trail",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/ResponseTrail"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Trail not found"
+                    }
+                }
+            }
+        },
+        "/trails/list": {
+            "get": {
+                "tags": [
+                    "trail"
+                ],
+                "summary": "Return all trails (user ID in bearer token)",
+                "description": "This route is responsible to return all trails",
+                "parameters": [
+                    {
+                        "name": "bearerToken",
+                        "in": "path",
+                        "description": "ID trail to return",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Trail founded",
+                        "schema": {
+                            "$ref": "#/components/schemas/ResponseTrail"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Trail not found"
+                    }
+                }
+            }
+        },
+        "trails/remove-content/{trailID}": {
+            "delete": {
+                "tags": [
+                    "trail"
+                ],
+                "summary": "Delete content by ID and trail ID",
+                "description": "This route is responsible to delete content by ID (request body) and trail ID (route parameters)",
+                "parameters": [
+                    {
+                        "name": "api_key",
+                        "in": "header",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "trailId",
+                        "in": "path",
+                        "description": "Trail ID to delete",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Removed trail successfully"
+                    },
+                    "400": {
+                        "description": "Invalid content ID"
+                    },
+                    "404": {
+                        "description": "Trail not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/content/new": {
+            "post": {
+                "tags": [
+                    "content"
+                ],
+                "summary": "Add new content to database",
+                "description": "This route is responsible to create and save a new content to database",
+                "requestBody": {
+                    "description": "Necessary data to create a new content",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestContent"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Content created successfully",
+                        "schema": {
+                            "$ref": "#/components/schemas/ResponseContent"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Content"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/content/list": {
+            "get": {
+                "tags": [
+                    "content"
+                ],
+                "summary": "Find content by ID",
+                "description": "This route is responsible to find content by ID",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Content created successfully",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/ResponseContent"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "204": {
+                        "description": "There are no content"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "RequestUser": {
+                "type": "object",
+                "properties": {
+                    "first_name": {
+                        "type": "string",
+                        "description": "User first name",
+                        "example": "Maria"
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "description": "User last name",
+                        "example": "da Silva"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "User email",
+                        "example": "mariadasilva@gmail.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "format": "password",
+                        "description": "User password",
+                        "example": "123456"
+                    }
+                },
+                "required": [
+                    "first_name",
+                    "last_name",
+                    "email",
+                    "password"
+                ]
+            },
+            "ResponseUser": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "User ID to be created"
+                    },
+                    "first_name": {
+                        "type": "string",
+                        "description": "User first name",
+                        "example": "Maria"
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "description": "User last name",
+                        "example": "da Silva"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "User email",
+                        "example": "mariadasilva@gmail.com"
+                    },
+                    "admin": {
+                        "type": "boolean",
+                        "description": "Admin user access",
+                        "example": "false"
+                    },
+                    "created_at": {
+                        "type": "date-time",
+                        "description": "Date and time user creation",
+                        "example": "2022-11-13T23:53:54Z"
+                    }
+                }
+            },
+            "RequestTrail": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Trail name",
+                        "example": "Full Stack Development"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Trail description",
+                        "example": "Be a complete developer with the Full Stack Development trail"
+                    }
+                },
+                "required": [
+                    "name",
+                    "description"
+                ]
+            },
+            "ResponseTrail": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "Trail ID to be created"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Trail name",
+                        "example": "Full Stack Development"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Trail description",
+                        "example": "Be a complete developer with the Full Stack Development trail"
+                    },
+                    "duration": {
+                        "type": "number",
+                        "description": "Trail duration in minutes",
+                        "example": "600"
+                    },
+                    "created_at": {
+                        "type": "date-time",
+                        "description": "Date and time trail creation",
+                        "example": "2022-11-13T23:53:54Z"
+                    },
+                    "updated_at": {
+                        "type": "date-time",
+                        "description": "Date and time trail update",
+                        "example": "2022-11-13T23:53:54Z"
+                    }
+                }
+            },
+            "RequestContent": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Content name",
+                        "example": "JavaScript"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Content description",
+                        "example": "Create features on your web pages"
+                    },
+                    "url": {
+                        "type": "string",
+                        "description": "Content URL",
+                        "example": "www.rocketseat.com.br"
+                    },
+                    "duration": {
+                        "type": "number",
+                        "description": "Content duration in minutes",
+                        "example": "30"
+                    },
+                    "source": {
+                        "type": "string",
+                        "description": "Content source",
+                        "example": "Rocketseat"
+                    },
+                    "category": {
+                        "type": "string",
+                        "description": "Content category",
+                        "example": "Video"
+                    }
+                }
+            },
+            "ResponseContent": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "Content ID to be created"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Content name",
+                        "example": "JavaScript"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Content description",
+                        "example": "Create features on your web pages"
+                    },
+                    "url": {
+                        "type": "string",
+                        "description": "Content URL",
+                        "example": "www.rocketseat.com.br"
+                    },
+                    "duration": {
+                        "type": "number",
+                        "description": "Content duration in minutes",
+                        "example": "30"
+                    },
+                    "source": {
+                        "type": "string",
+                        "description": "Content source",
+                        "example": "Rocketseat"
+                    },
+                    "category": {
+                        "type": "string",
+                        "description": "Content category",
+                        "example": "Video"
+                    },
+                    "created_at": {
+                        "type": "date-time",
+                        "description": "Date and time content creation",
+                        "example": "2022-11-13T23:53:54Z"
+                    },
+                    "updated_at": {
+                        "type": "date-time",
+                        "description": "Date and time content update",
+                        "example": "2022-11-14T12:25:14Z"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "description": "Authentication with JWT",
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "Find out more about Swagger",
+        "url": "http://swagger.io"
+    }
+}

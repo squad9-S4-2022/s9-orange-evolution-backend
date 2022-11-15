@@ -4,6 +4,8 @@ import { createConnection } from "./database";
 import { app } from "./app";
 
 dotenv.config();
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "../swagger.json";
 
 createConnection();
 
@@ -11,3 +13,14 @@ createConnection();
 app.listen(process.env.PORT || 3333, () => {
     console.log("Server online on port 3333 ✅");
 });
+
+app.use('/doc-swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+app.get("/swagger", (request, response) => {
+    return response.sendFile(process.cwd() + "/swagger.json")
+})
+
+app.get("/doc-redocly", (request, response) => {
+    return response.sendFile(process.cwd() + "/index.html")
+})
+
