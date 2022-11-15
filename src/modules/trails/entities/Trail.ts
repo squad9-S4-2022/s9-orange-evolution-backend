@@ -5,7 +5,7 @@ import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryColumn,
 @Entity("trails")
 class Trail {
     @PrimaryColumn()
-    id: string;
+    id: string = randomUUID();
 
     @Column()
     name: string;

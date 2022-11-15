@@ -14,7 +14,7 @@ export async function ensureIsAdmin(
 
     // acessa o repositório de usuários e busca por id
     const usersRepository = datasource.getRepository(User);
-    const user = await usersRepository.findOneBy({ id });
+    const user = await usersRepository.findOneByOrFail({ id });
 
     // verifica se a propriedade admin é false. Se sim, retorna um erro
     // se for true, segue para a próxima etapa
