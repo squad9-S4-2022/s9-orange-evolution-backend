@@ -14,9 +14,9 @@ dotenv.config();
 const datasource = new DataSource({
     type: "postgres",
     url: process.env.DB_URL,
-    // entities: [User, Trail, Content],
+    entities: [User, Trail, Content],
     // migrations: ["./src/database/typeorm/migrations/*.ts"]
-    entities: [`${__dirname}/**/modules/**/entities/*.{ts,js}`],
+    // entities: [`${__dirname}/**/modules/**/entities/*.{ts,js}`],
     migrations: [`${__dirname}/**/database/typeorm/migrations/*.{ts,js}`],
 });
 
