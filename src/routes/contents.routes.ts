@@ -15,15 +15,15 @@ const listContentController = new ListContentController();
 // criar novo conteúdo
 contentRoutes.post(
     "/new",
-    // ensureAuthenticated,
-    // ensureIsAdmin,
+    ensureAuthenticated,
+    ensureIsAdmin,
     createContentController.handle);
 
 //listar todos os conteúdos cadastrados
 contentRoutes.get(
     "/list",
-    // ensureAuthenticated,
-    // ensureIsAdmin,
+    ensureAuthenticated,
+    ensureIsAdmin,
     listContentController.handle);
 
 export { contentRoutes };

@@ -40,8 +40,8 @@ trailRoutes.post(
 // remover conteúdo de uma trilha
 trailRoutes.delete(
     "/remove-content/:trail_id",
-    // ensureAuthenticated,
-    // ensureIsAdmin,
+    ensureAuthenticated,
+    ensureIsAdmin,
     removeContentFromTrailController.handle);
 
 export { trailRoutes };
