@@ -27,14 +27,14 @@ trailRoutes.post(
 // Rota de listagem de trilhas
 trailRoutes.get(
     "/list",
-    // ensureAuthenticated,
+    ensureAuthenticated,
     listTrailsController.handle);
 
 // adicionar conteúdo à uma trilha
 trailRoutes.post(
     "/add-content/:trail_id",
-    // ensureAuthenticated,
-    // ensureIsAdmin,
+    ensureAuthenticated,
+    ensureIsAdmin,
     addContentToTrailController.handle);
 
 // remover conteúdo de uma trilha
