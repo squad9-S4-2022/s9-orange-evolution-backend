@@ -26,10 +26,11 @@ class CreateUserService {
             trails
         });
 
-        delete user.password;
 
         // salva no banco de dados
         await usersRepository.save(user);
+
+        delete user.password;
 
         return user;
     }
