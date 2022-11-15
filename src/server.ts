@@ -1,5 +1,9 @@
+import dotenv from "dotenv";
+
 import { createConnection } from "./database";
 import { app } from "./app";
+
+dotenv.config();
 
 createConnection();
 
