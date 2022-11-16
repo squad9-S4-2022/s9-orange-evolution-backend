@@ -31,7 +31,7 @@ Após essas configurações, basta executar a aplicação com
 ## Rotas:
 - GET "`/`" - rota padrão
 
-- Documentação de API  `/doc-redocly` ou `/swagger`
+- Documentação de API  `/doc-swagger`
 
 - Usuários:
 	- **POST** `/user` -> cadastro de usuário
